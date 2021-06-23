@@ -50,7 +50,7 @@ template <Printable... Types>
 }
 
 template <Printable... Types>
-[[maybe_unused]] void println(std::ostream&out,const std::string_view fmtStr, const Types&... args) {
+[[maybe_unused]] void println(std::ostream& out, const std::string_view fmtStr, const Types&... args) {
     out << std::format(fmtStr, args...) << "\n";
 }
 
@@ -60,13 +60,12 @@ namespace std {
 
 template <class CharT>
 struct [[maybe_unused]] formatter<tools::LinkedList, CharT> {
-    [[nodiscard, maybe_unused]] 
-    auto parse(format_parse_context& ctx) {
+    [[nodiscard, maybe_unused]] auto parse(format_parse_context& ctx) {
         return ctx.end();
     }
     template <typename OutputIt>
-    [[nodiscard, maybe_unused]]
-    auto format(const tools::LinkedList& value, std::basic_format_context<OutputIt, char>& ctx) const noexcept {
+    [[nodiscard, maybe_unused]] auto
+    format(const tools::LinkedList& value, std::basic_format_context<OutputIt, char>& ctx) const noexcept {
         auto output = ctx.out();
         auto valueString = tools::to_string(value);
         output = std::copy(valueString.begin(), valueString.end(), output);

@@ -11,15 +11,11 @@ struct ListNode {
     ListNode* next;
     explicit ListNode(int x)
         : val(x)
-        , next(nullptr)
-    {
+        , next(nullptr) {
     }
 };
 
-
-
-class LinkedList
-{
+class LinkedList {
 public:
     using value_type = int;
     using reference = const int&;
@@ -27,8 +23,7 @@ public:
     using size_type = size_t;
 
     LinkedList(const std::initializer_list<int>& list)
-        : listSize(list.size())
-    {
+        : listSize(list.size()) {
         if (list.size() == 0) {
             this->head = nullptr;
             return;
@@ -43,8 +38,7 @@ public:
 
     LinkedList(const LinkedList& other)
         : listSize(other.listSize)
-        , head(nullptr)
-    {
+        , head(nullptr) {
         if (other.head) {
             auto otherHead = other.head;
             this->head = new ListNode(otherHead->val);
@@ -57,8 +51,7 @@ public:
         }
     }
 
-    LinkedList& operator=(LinkedList&& other) noexcept
-    {
+    LinkedList& operator=(LinkedList&& other) noexcept {
         this->head = other.head;
         this->listSize = other.listSize;
         return *this;
@@ -66,20 +59,17 @@ public:
 
     LinkedList(LinkedList&& other) noexcept
         : listSize(other.listSize)
-        , head(other.takeOwnedHead())
-    {
+        , head(other.takeOwnedHead()) {
         other.head = nullptr;
     }
 
-    explicit LinkedList(ListNode* raw)
-    {
+    explicit LinkedList(ListNode* raw) {
         size_t newSize = countListSize(raw);
         this->head = raw;
         this->listSize = newSize;
     }
 
-    void push_front(int val)
-    {
+    void push_front(int val) {
         if (this->head) {
             auto curHead = this->head;
             while (curHead->next) {
@@ -91,13 +81,11 @@ public:
         }
     }
 
-    [[nodiscard]] size_t size() const
-    {
+    [[nodiscard]] size_t size() const {
         return this->listSize;
     }
 
-    void push_back(int val)
-    {
+    void push_back(int val) {
         if (head) {
             auto new_head = new ListNode(val);
             new_head->next = head;
@@ -107,8 +95,7 @@ public:
         }
     }
 
-    ~LinkedList()
-    {
+    ~LinkedList() {
         while (head) {
             ListNode* delNode = head;
             head = head->next;
@@ -116,8 +103,7 @@ public:
         }
     }
 
-    ListNode* takeOwnedHead()
-    {
+    ListNode* takeOwnedHead() {
         auto curHead = this->head;
         this->head = nullptr;
         return curHead;
@@ -129,8 +115,7 @@ private:
 
     friend std::string to_string(const LinkedList& list);
 
-    static size_t countListSize(ListNode* head)
-    {
+    static size_t countListSize(ListNode* head) {
         size_t counter = 0;
         while (head) {
             counter += 1;
@@ -147,18 +132,15 @@ struct TreeNode {
     explicit TreeNode(int x)
         : val(x)
         , left(nullptr)
-        , right(nullptr)
-    {
+        , right(nullptr) {
     }
 };
 
-class BinaryTree
-{
+class BinaryTree {
 private:
     TreeNode* treeRootNode;
 
-    void freeNode(TreeNode* root)
-    {
+    void freeNode(TreeNode* root) {
         if (root == nullptr) {
             return;
         }
@@ -167,8 +149,7 @@ private:
         delete root;
     };
 
-    static std::vector<std::optional<int>> extractIntArray(std::string str)
-    {
+    static std::vector<std::optional<int>> extractIntArray(std::string str) {
         std::vector<std::optional<int>> intList;
         str = str.substr(1, str.size() - 2);
         str += ',';
@@ -188,8 +169,7 @@ private:
         return intList;
     }
 
-    void setBinTreeByInt(std::vector<std::optional<int>>& list)
-    {
+    void setBinTreeByInt(std::vector<std::optional<int>>& list) {
         std::queue<TreeNode*> q;
         freeNode(this->treeRootNode);
         if (list.empty() || list[ 0 ] == std::nullopt) {
@@ -214,8 +194,7 @@ private:
         }
     };
 
-    int treeHeight(TreeNode* root) const
-    {
+    int treeHeight(TreeNode* root) const {
         if (root == nullptr) {
             return 0;
         }
@@ -227,40 +206,33 @@ public:
         : treeRootNode(nullptr){};
 
     explicit BinaryTree(const std::string& str)
-        : treeRootNode(nullptr)
-    {
+        : treeRootNode(nullptr) {
         setBinTree(str);
     };
-    ~BinaryTree()
-    {
+    ~BinaryTree() {
         freeNode(treeRootNode);
     };
 
-    void setBinTree(const std::string& str)
-    {
+    void setBinTree(const std::string& str) {
         std::vector intArray = extractIntArray(str);
         setBinTreeByInt(intArray);
     }
 
-    TreeNode* getRoot()
-    {
+    TreeNode* getRoot() {
         return treeRootNode;
     }
 
-    [[nodiscard, maybe_unused]] TreeNode* getInnerRoot()
-    {
+    [[nodiscard, maybe_unused]] TreeNode* getInnerRoot() {
         return treeRootNode;
     }
 
-    explicit operator TreeNode*()
-    {
+    explicit operator TreeNode*() {
         return this->treeRootNode;
     }
     friend std::vector<std::optional<int>> flattenBinTree(const BinaryTree& tree);
 };
 
-[[nodiscard]]inline std::vector<std::optional<int>> flattenBinTree(const BinaryTree& tree)
-{
+[[nodiscard]] inline std::vector<std::optional<int>> flattenBinTree(const BinaryTree& tree) {
     std::vector<std::optional<int>> flatIntList;
     std::queue<TreeNode*> q;
     q.push(tree.treeRootNode);
@@ -286,8 +258,7 @@ public:
     return flatIntList;
 }
 
-inline std::vector<std::string> convertStrList(std::vector<std::optional<int>>& flatIntList)
-{
+inline std::vector<std::string> convertStrList(std::vector<std::optional<int>>& flatIntList) {
     std::vector<std::string> flatStrList;
     for (auto var : flatIntList) {
         if (var == std::nullopt) {

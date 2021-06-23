@@ -9,8 +9,6 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
-
-#include "formatters.hpp"
 #include "utility.hpp"
 
 using namespace tools;
@@ -184,5 +182,5 @@ public:
     }
 };
 int main() {
-     tools::println("{}", Solution{}.readBinaryWatch(10)));
+     tools::println("{}", Solution{}.readBinaryWatch(10));
 }
