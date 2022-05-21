@@ -1,11 +1,5 @@
-#include "formatters.hpp"
-#include "regex.hpp"
+#include "test.hpp"
 
-
-
-
-
-int main() {
-   auto regex = Regex("ab*c.*");
-   tools::println("{}", regex.isMatch("abc"));
+int main(int argc, char** argv) {
+    printf("hello world");
 }
